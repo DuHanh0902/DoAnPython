@@ -13,7 +13,7 @@ class Castle:
             image (kiểu dữ liệu: hình ảnh): giao diện pháo đài
         Phương thức:
             damageRec(): xem chi tiết ở __doc__ của phương thức này
-            disoplay(): xem chi tiết ở __doc__ của phương thức này
+            display(): xem chi tiết ở __doc__ của phương thức này
     """
     healthValue = 200
     image = pygame.image.load("images/Castle.png")
@@ -174,6 +174,9 @@ class Arrow:
     image=pygame.transform.scale(image,(24,15))
     shootS=pygame.mixer.Sound("sounds/shoot.wav")
     shootS.set_volume(0.25)
+    def __init__(self):
+        self.arrows=[]
+        self.accuracy=[0,0]
     def catchEventShoot(self,event,player):
         """
         Bắt sự kiện click chuột để bắn tên.
@@ -245,6 +248,8 @@ class Enemy:
     boom.set_volume(0.25)
     scream=pygame.mixer.Sound("sounds/scream.wav")
     scream.set_volume(0.25)
+    def __init__(self):
+        self.enemies=[]
     def randomAppear(self,arrow,castle,player):
         """
         Tạo địch xuất hiện ngẫu nhiên.
@@ -316,6 +321,7 @@ def checkEnd(castle,player,timer):
             timer (kiểu dữ liệu: số nguyên): Tổng thời gian phòng thủ mà người chơi đã nhập (hoặc mặc định là 90 giây nếu không nhập)
         Kết quả trả về:
             running (kiểu dữ liệu: số nguyên): chỉ nhận giá trị 1 và 0 tương ứng "True" và "False" để kết thúc vòng lặp sự kiện game
+            exitcode (kiểu dữ liệu: số nguyên): nhận giá trị 1 tương ứng chiến thắng hoặc 0 tương ứng với thất bại
     """
     running = 1
     exitcode = 2
@@ -406,7 +412,8 @@ class InputBox:
             txt_surface (kiểu dữ liệu: chuỗi): dùng để hiển thị những gì người chơi đã nhập lên màn hình
             active (kiểu dữ liệu: bool): dùng để xác định người dùng đã click vào ô nhập hay chưa
         Phương thức:
-            randomAppear(): xem chi tiết ở __doc__ của phương thức này
+            handle_event(): xem chi tiết ở __doc__ của phương thức này
+            draw(): xem chi tiết ở __doc__ của phương thức này
     """
     text_typed = ""
     COLOR_INACTIVE = pygame.Color('lightskyblue3')
